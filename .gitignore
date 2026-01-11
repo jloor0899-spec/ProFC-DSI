@@ -1,0 +1,17 @@
+# Entornos virtuales
+.venv/
+venv/
+
+# Archivos de Python
+__pycache__/
+*.pyc
+
+# Base de datos
+db.sqlite3
+
+# PyCharm / IDE
+.idea/
+
+# Migraciones compiladas
+*.log
+
