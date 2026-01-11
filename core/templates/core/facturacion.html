@@ -1,0 +1,103 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<h2>Facturación</h2>
+
+<!-- ========================= -->
+<!-- BUSCAR CLIENTE POR CÉDULA -->
+<!-- ========================= -->
+<form method="post">
+    {% csrf_token %}
+
+    <label>Cédula del cliente:</label>
+    <input type="text" name="cedula" value="{{ cedula }}" required>
+
+    <button name="buscar_cliente">Buscar</button>
+</form>
+
+{% if cliente %}
+    <p><strong>Nombre:</strong> {{ cliente.nombre }}</p>
+    <p><strong>Dirección:</strong> {{ cliente.direccion }}</p>
+{% endif %}
+
+{% if messages %}
+    {% for m in messages %}
+        <p style="color:red">{{ m }}</p>
+    {% endfor %}
+{% endif %}
+
+<hr>
+
+<!-- ================= -->
+<!-- AGREGAR PRODUCTO -->
+<!-- ================= -->
+<form method="post">
+    {% csrf_token %}
+
+    <!-- mantener la cédula -->
+    <input type="hidden" name="cedula" value="{{ cedula }}">
+
+    <label>Producto:</label>
+    <select name="producto">
+        {% for p in productos %}
+            <option value="{{ p.id_producto }}">{{ p.nombre }}</option>
+        {% endfor %}
+    </select>
+
+    <label>Cantidad:</label>
+    <input type="number" name="cantidad" min="1" required>
+
+    <button name="agregar_producto">Agregar</button>
+</form>
+
+<hr>
+
+<!-- ======== -->
+<!-- CARRITO -->
+<!-- ======== -->
+<h3>Carrito</h3>
+
+<table>
+<tr>
+    <th>Producto</th>
+    <th>Cant</th>
+    <th>Precio</th>
+    <th>Total</th>
+    <th></th>
+</tr>
+
+{% for i in carrito %}
+<tr>
+    <td>{{ i.nombre }}</td>
+    <td>{{ i.cantidad }}</td>
+    <td>{{ i.precio }}</td>
+    <td>{{ i.cantidad }} x {{ i.precio }}</td>
+    <td>
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="producto_id" value="{{ i.producto_id }}">
+            <button name="eliminar_producto">X</button>
+        </form>
+    </td>
+</tr>
+{% empty %}
+<tr><td colspan="5">Sin productos</td></tr>
+{% endfor %}
+</table>
+
+<hr>
+
+<h4>Subtotal: {{ subtotal }}</h4>
+<h4>IVA: {{ iva }}</h4>
+<h3>Total: {{ total }}</h3>
+
+<!-- ================= -->
+<!-- GUARDAR FACTURA -->
+<!-- ================= -->
+<form method="post">
+    {% csrf_token %}
+    <input type="hidden" name="cedula" value="{{ cedula }}">
+    <button name="guardar_venta">Guardar Factura</button>
+</form>
+
+{% endblock %}

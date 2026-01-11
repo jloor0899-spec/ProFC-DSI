@@ -1,0 +1,40 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<h2>Factura #{{ venta.id_venta }}</h2>
+
+<p><b>Fecha:</b> {{ venta.fecha }}</p>
+<p><b>Cliente:</b> {{ venta.cliente.nombre }}</p>
+<p><b>Cédula:</b> {{ venta.cliente.cedula_ruc }}</p>
+
+<hr>
+
+<table border="1" cellpadding="5">
+    <tr>
+        <th>Producto</th>
+        <th>Cantidad</th>
+        <th>Precio</th>
+        <th>Total</th>
+    </tr>
+
+    {% for d in detalles %}
+    <tr>
+        <td>{{ d.producto.nombre }}</td>
+        <td>{{ d.cantidad }}</td>
+        <td>{{ d.precio }}</td>
+        <td>{{ d.cantidad }} x {{ d.precio }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<hr>
+
+<p><b>Subtotal:</b> {{ venta.subtotal }}</p>
+<p><b>IVA:</b> {{ venta.iva }}</p>
+<h3>Total: {{ total }}</h3>
+
+<hr>
+
+<button onclick="window.print()">🖨 Imprimir Factura</button>
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Productos{% endblock %}
+
+{% block content %}
+<h2>Registrar Producto</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button>Guardar Producto</button>
+</form>
+
+<h2>Productos Registrados</h2>
+<table border="1">
+<tr>
+    <th>ID</th>
+    <th>Nombre</th>
+    <th>Categoría</th>
+    <th>Presentación</th>
+    <th>Vencimiento</th>
+    <th>Precio</th>
+    <th>Stock</th>
+    <th>Proveedor</th>
+    <th>Acciones</th>
+</tr>
+{% for pr in productos %}
+<tr>
+    <td>{{ pr.id_producto }}</td>
+    <td>{{ pr.nombre }}</td>
+    <td>{{ pr.categoria }}</td>
+    <td>{{ pr.presentacion }}</td>
+    <td>{{ pr.fecha_vencimiento }}</td>
+    <td>{{ pr.precio }}</td>
+    <td>{{ pr.stock }}</td>
+    <td>{{ pr.proveedor.nif }}</td>
+    <td>
+        <a href="{% url 'editar_producto' pr.id_producto %}">✏️ Editar</a> |
+        <a href="{% url 'eliminar_producto' pr.id_producto %}"
+           onclick="return confirm('¿Eliminar producto?')">🗑 Eliminar</a>
+    </td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Proveedores{% endblock %}
+
+{% block content %}
+<h2>Registrar Proveedor</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button>Guardar Proveedor</button>
+</form>
+
+<h2>Proveedores Registrados</h2>
+<table border="1">
+<tr>
+    <th>NIF</th>
+    <th>Nombre</th>
+    <th>Ciudad</th>
+    <th>Teléfono</th>
+    <th>Dirección</th>
+    <th>Acciones</th>
+</tr>
+{% for p in proveedores %}
+<tr>
+    <td>{{ p.nif }}</td>
+    <td>{{ p.nombre }}</td>
+    <td>{{ p.ciudad }}</td>
+    <td>{{ p.telefono }}</td>
+    <td>{{ p.direccion }}</td>
+    <td>
+        <a href="{% url 'editar_proveedor' p.nif %}">✏️ Editar</a> |
+        <a href="{% url 'eliminar_proveedor' p.nif %}"
+           onclick="return confirm('¿Eliminar proveedor?')">🗑 Eliminar</a>
+    </td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+<h2>Facturas Guardadas</h2>
+
+<table border="1" cellpadding="5">
+    <tr>
+        <th>#</th>
+        <th>Fecha</th>
+        <th>Cliente</th>
+        <th>Subtotal</th>
+        <th>IVA</th>
+        <th>Acción</th>
+    </tr>
+
+    {% for v in ventas %}
+    <tr>
+        <td>{{ v.id_venta }}</td>
+        <td>{{ v.fecha }}</td>
+        <td>{{ v.cliente.nombre }}</td>
+        <td>{{ v.subtotal }}</td>
+        <td>{{ v.iva }}</td>
+        <td>
+            <a href="{% url 'factura_detalle' v.id_venta %}">
+                Ver / Imprimir
+            </a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="6">No hay facturas</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

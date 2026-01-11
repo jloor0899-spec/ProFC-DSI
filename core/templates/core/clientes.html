@@ -1,0 +1,38 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Clientes{% endblock %}
+
+{% block content %}
+<h2>Registrar Cliente</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button>Guardar Cliente</button>
+</form>
+
+<h2>Clientes Registrados</h2>
+<table border="1">
+<tr>
+    <th>Cédula/RUC</th>
+    <th>Nombre</th>
+    <th>Dirección</th>
+    <th>Teléfono</th>
+    <th>Correo</th>
+    <th>Acciones</th>
+</tr>
+{% for c in clientes %}
+<tr>
+    <td>{{ c.cedula_ruc }}</td>
+    <td>{{ c.nombre }}</td>
+    <td>{{ c.direccion }}</td>
+    <td>{{ c.telefono }}</td>
+    <td>{{ c.correo }}</td>
+    <td>
+        <a href="{% url 'editar_cliente' c.cedula_ruc %}">✏️ Editar</a> |
+        <a href="{% url 'eliminar_cliente' c.cedula_ruc %}"
+           onclick="return confirm('¿Eliminar cliente?')">🗑 Eliminar</a>
+    </td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}
