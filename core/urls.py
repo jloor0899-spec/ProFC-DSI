@@ -17,8 +17,10 @@ urlpatterns = [
 
     # PRODUCTOS
     path('productos/', views.productos, name='productos'),
-    path('productos/editar/<int:id>/', views.editar_producto, name='editar_producto'),
-    path('productos/eliminar/<int:id>/', views.eliminar_producto, name='eliminar_producto'),
+# PRODUCTOS
+    path('productos/editar/<int:id_producto>/', views.editar_producto, name='editar_producto'),
+    path('productos/eliminar/<int:id_producto>/', views.eliminar_producto, name='eliminar_producto'),
+
 
     # FACTURACIÓN
     path('facturacion/', views.facturacion, name='facturacion'),

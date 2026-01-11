@@ -1,0 +1,1 @@
+web: gunicorn ProFC_DSI.wsgi:application
