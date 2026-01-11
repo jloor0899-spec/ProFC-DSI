@@ -1,1 +1,1 @@
-web: gunicorn ProFC_DSI.wsgi:application
+web: gunicorn ProFC_DSI.wsgi
