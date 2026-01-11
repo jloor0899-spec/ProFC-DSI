@@ -11,24 +11,25 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
-import os
-from decouple import config  # Asegúrate de instalar python-decouple
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# ==============================
-# SECRET KEY y DEBUG desde variables de entorno
-# ==============================
-SECRET_KEY = config('DJANGO_SECRET_KEY', default='unsafe-secret-key')
 
-DEBUG = config('DJANGO_DEBUG', default='False') == 'True'
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
-ALLOWED_HOSTS = ['*']  # Puedes cambiarlo por la URL de Railway: ['web-production-be54.up.railway.app']
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'django-insecure-*htd1o#$1hatfvq$a-yb4etl&q*6(^ktk3jba#v6be3^pjbh7)'
 
-# ==============================
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
+
+ALLOWED_HOSTS = ['*']
+
+
 # Application definition
-# ==============================
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -54,7 +55,8 @@ ROOT_URLCONF = 'ProFC_DSI.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [BASE_DIR / 'templates']
+        ,
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,23 +70,26 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ProFC_DSI.wsgi.application'
 
-# ==============================
-# Database usando variables de entorno
-# ==============================
+
+# Database
+# https://docs.djangoproject.com/en/6.0/ref/settings/#databases
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('PGDATABASE'),
-        'USER': config('PGUSER'),
-        'PASSWORD': config('PGPASSWORD'),
-        'HOST': config('PGHOST'),
-        'PORT': config('PGPORT', default='5432'),
+        'NAME': 'Farmacia',          # nombre de tu BD
+        'USER': 'postgres',          # tu usuario
+        'PASSWORD': '123',   # tu contraseña
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
-# ==============================
+
+
 # Password validation
-# ==============================
+# https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -100,9 +105,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# ==============================
+
 # Internationalization
-# ==============================
+# https://docs.djangoproject.com/en/6.0/topics/i18n/
+
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -111,8 +117,8 @@ USE_I18N = True
 
 USE_TZ = True
 
-# ==============================
-# Static files
-# ==============================
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # necesario para producción
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/6.0/howto/static-files/
+
+STATIC_URL = 'static/'
